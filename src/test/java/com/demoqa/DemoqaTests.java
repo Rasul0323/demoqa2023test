@@ -2,7 +2,6 @@ package com.demoqa;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -10,43 +9,63 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class DemoqaTests extends TestBase{
+    private final String firstName = "Missis Elena",
+            lastName = "Ford",
+            email = "vv@aa.com",
+            gender = "Female",
+            number = "7777777777",
+            month = "July",
+            year = "1993",
+            day = "14",
+            subjects = "History",
+            hobbies = "Sports",
+            picture = "7.jpeg",
+            address = "Str-90",
+            state = "NCR",
+            city = "Delhi";
+
+
+
+
+
+
     @Test
     void successfulSearchTest() {
         open("/automation-practice-form");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
-        $("#firstName").setValue("Missis Elena");
-        $("#lastName").setValue("Ford");
-        $("#userEmail").setValue("vv@aa.com");
-        $(byText("Female")).click();
-        $("#userNumber").setValue("7777777777");
+        $("#firstName").setValue(firstName);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue(email);
+        $(byText(gender)).click();
+        $("#userNumber").setValue(number);
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").click();
-        $(byText("July")).click();
+        $(byText(month)).click();
         $(".react-datepicker__year-select").click();
-        $(byText("1993")).click();
-        $(".react-datepicker__day--014").click();
-        $("#subjectsInput").setValue("History");
+        $(byText(year)).click();
+        $(".react-datepicker__day--0" +day).click();
+        $("#subjectsInput").setValue(subjects);
         $("#subjectsInput").pressEnter();
-        $(byText("Sports")).click();
-        $("#uploadPicture").uploadFile(new File("src/test/resources/7.jpeg"));
-        $("#currentAddress").setValue("Str-90");
+        $(byText(hobbies)).click();
+        $("#uploadPicture").uploadFromClasspath(picture);
+        $("#currentAddress").setValue(address);
         $("#state").click();
-        $(byText("NCR")).click();
+        $(byText(state)).click();
         $("#city").click();
-        $(byText("Delhi")).click();
+        $(byText(city)).click();
         $("#submit").click();
         $(".table").shouldHave(
-                text("Missis Elena Ford"),
-                text("vv@aa.com"),
-                text("Female"),
-                text("7777777777"),
-                text("14 July,1993"),
-                text("History"),
-                text("Sports"),
-                text("7.jpeg"),
-                text("Str-90"),
-                text("NCR Delhi"));
+                text(firstName + " " + lastName),
+                text(email),
+                text(gender),
+                text(number),
+                text(day + " " +  month + "," + year),
+                text(subjects),
+                text(hobbies),
+                text(picture),
+                text(address),
+                text(state + " " + city));
 
 
     }
